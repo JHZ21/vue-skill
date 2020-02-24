@@ -1,5 +1,10 @@
 # vue-skill
 
+## 项目运用技巧
+    Vue.observable 实现简易的Vuex
+    多个过滤器自动全局注册
+    
+
 ## Project setup
 ```
 npm install

@@ -1,58 +1,61 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div>
+    <label for="bookNum">数 量: {{ count | add }}</label>
+    <!-- <label for="bookNum">数 量: {{ count | dataServer }}</label> -->
+    <!-- <button @click="setCount(count+1)">+</button>
+    <button @click="setCount(count-1)">-</button>-->
+    <!-- <div v-click>directive: click1</div> -->
+    <!-- <div @click="myMethod">来点我啊~</div> -->
+    <div>{{ arr }}</div>
+    <button @click="changeArrayOneItem">改变数组第一个值</button>
+    <span v-pre>{{ msg }}</span>
+    <freeze></freeze>
+    <div>{{$log(count)}}</div>
+    <watch-deep></watch-deep>
+    <countUp></countUp>
+    <jCountUp></jCountUp>
   </div>
 </template>
 
 <script>
+import { store, mutations } from "../store/observable";
+import countUp from "vue-count-to"
+import jCountUp from "hz-v-count-up"
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
+  name: "HelloWorld",
+  components: { countUp, jCountUp },
+  data() {
+    return {
+      count: "12345678",
+      arr: [1, 3, 4, 5, 6, 3],
+      msg: "msg在此"
+    };
+  },
+  computed: {
+    // count() {
+    //   return store.count;
+    // }
+  },
+  filters: {
+    add(val) {
+      return val + "12";
+    }
+  },
+  methods: {
+    changeArrayOneItem() {
+      // 当你利用索引直接设置一个数组项时或你修改数组的长度时,
+      // 由于 Object.defineprototype()方法限制,数据不响应式更新
+      // const item = Number.parseInt(Math.random()*10);
+      // this.arr[0] = item;
+      // this.$set(this.arr, 0, item)
+      // this.arr.shift();
+      // this.arr.unshift(item);
+      // console.log(this.arr[0], this.arr);
+    }
+    // myMethod(){
+    //   this.$myMethod();
+    // },
+    // setCount: mutations.setCount
   }
-}
+};
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
